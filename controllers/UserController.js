@@ -79,8 +79,43 @@ function update(req, res) {
   })
 }
 
+function login(req, res){
+  var params = req.body;
+  var correo = params.email;
+
+  User.findOne( { email:  correo.toLowerCase() }, (error, userLogged) =>{
+    if(error){
+      res.status(500).send({
+        message: "Error en el servidor"
+      })
+    }else{
+      if(!userLogged){
+        res.status(400).send({
+          message: "El usuario no existe"
+        })
+      }else{
+        var password = encriptar(params.password);
+        console.log("Contraseña encriptada: ", password);
+        console.log(" Contraseña guardada en la DB : ", userLogged.password);
+        if (password === userLogged.password){
+          res.status(200).send({
+            message: "Los datos son correctos"
+          })
+        }else{
+          res.status(200).send({
+            message: "La contraseña no es correcta"
+          })
+        }
+      }
+    }
+
+  } )
+
+}
+
 /* Exportamos el módulo del controllador junto con la función de crear usuario */
 module.exports = {
   create,
-  update
+  update,
+  login
 }
