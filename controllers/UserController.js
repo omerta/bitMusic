@@ -13,7 +13,9 @@ function create(req, res) {
   user.firstName = params.firstName;
   user.lastName = params.lastName;
   user.email = params.email;
-
+  if (params.password !== "" && params.password !== undefined) {
+    user.password = encriptar(params.password);
+  }
 
 
   user.save((error, userCreated) => {
@@ -31,7 +33,14 @@ function create(req, res) {
 
 }
 
-
+function encriptar(pass) {
+  var algoritmo = 'aes-256-cbc'
+  var key = crypto.createCipher(algoritmo, algoritmo);
+  var password = key.update(pass, 'utf8', 'hex');
+  password += key.final('hex');
+  console.log(password);
+  return password;
+}
 /**
  * El método findByIdAndUpdate nos permite buscar un registro y actualizarlo.
  * La estructura es: colleccion.findByIdAndUpdate( 'A quien se debe buscar y actualizar', 'Que se debe actualizar.' )
@@ -43,12 +52,10 @@ function update(req, res) {
   var id = req.params.id; //Parametro que llega desde la url.
 
   //------------------- Encriptación de la contraseña-----------
-  var algoritmo = 'aes-256-cbc'
-  var key = crypto.createCipher(algoritmo, algoritmo);
-  var password = key.update( params.password, 'utf8', 'hex' );
-  password += key.final('hex');
-  params.password = password;
-  console.log(params.password);
+  console.log("Este es:", params.password)
+  if (params.password !== "" && params.password !== undefined) {
+    params.password = encriptar(params.password);
+  }
   //------------------- Encriptación de la contraseña-----------
 
 
