@@ -1,0 +1,16 @@
+<form #signUpForm="ngForm" (ngSubmit)="signUp();" >
+  <label for="firstName" ></label>
+  <input id="firstName" name="firstName" type="text" placeholder="Ingresa tu nombre" required #firstName="ngModel" [(ngModel)]="signUpForm.firstName" /> <br/>
+
+  <label for="lastName" ></label>
+  <input id="lastName" name="lastName" type="text" placeholder="Ingresa tu apellido" required #lastName="ngModel" [(ngModel)]="signUpForm.lastName" /> <br/>
+
+  <label for="email" ></label>
+  <input id="email" name="email" type="email" placeholder="Ingresa tu email" required #email="ngModel" [(ngModel)]="signUpForm.email" /> <br/>
+
+  <label for="password" ></label>
+  <input id="password" name="password" type="password" placeholder="Ingresa tu contraseña" required #password="ngModel" [(ngModel)]="signUpForm.password" /> <br/>
+
+  <br/><br/>
+  <button type="submit"> Registrarse </button>
+</form>
