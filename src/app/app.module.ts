@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 import { UserService } from './services/user.service';
-import { LoginComponent } from './components/login/login.component'; // Importamos el servicio de user.
+import { LoginComponent } from './components/login/login.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component'; // Importamos el servicio de user.
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
