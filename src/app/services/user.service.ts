@@ -21,4 +21,14 @@ export class UserService {
       options
     ).pipe( res => res );
   }
+
+  login(userParams) {
+    const params = JSON.stringify(userParams);
+    const options = { headers: new HttpHeaders( { 'Content-Type': 'application/json' } ) };
+    return this.http.post(
+      this.apiURL + '/loginUser',
+      params,
+      options
+    ).pipe( res => res );
+  }
 }
