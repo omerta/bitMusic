@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.service.login( this.user).subscribe( (res: any) => {
-      console.log("Status --> ", res.statusCode);
       switch (res.statusCode) {
         case 400:
           alert('No estas registrado');
@@ -30,6 +29,7 @@ export class LoginComponent implements OnInit {
           break;
         case 200:
           alert('Bienvenido');
+          localStorage.setItem('dataUser', JSON.stringify(res.dataUser));
           break;
         default:
           alert('Error de conexión.');

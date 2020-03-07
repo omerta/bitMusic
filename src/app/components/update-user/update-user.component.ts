@@ -14,6 +14,26 @@ export class UpdateUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('dataUser'));
+    this.user = JSON.parse(localStorage.getItem('dataUser'));
+  }
+
+  updateUser() {
+    this.service.updateUser(this.user).subscribe( (res: any) => {
+      switch (res.statusCode) {
+        case 500:
+          alert('Error al conectarse con el servidor');
+          break;
+        case 400:
+          alert('Error al actualizar el usuario');
+          break;
+        case 200:
+          alert('Usuario actualizado correctamente.');
+          break;
+        default:
+          alert('Algo salió mal');
+      }
+    });
   }
 
 }
