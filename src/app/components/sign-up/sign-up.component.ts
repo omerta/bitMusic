@@ -9,14 +9,25 @@ import { UserService } from '../../services/user.service';
 })
 export class SignUpComponent implements OnInit {
 
+  public user: User;
+
   constructor(
-    private UserService: UserService,
-  ) { }
+    private service : UserService,
+  ) {
+    this.user = new User('', '', '', '', '', '');
+  }
 
   ngOnInit(): void {
   }
 
   signUp() {
+    this.service.signUp( this.user).subscribe( ( res: any ) => {
+      if (res.statusCode !== 200) {
+        alert('Error al crear el registro-');
+      } else {
+        alert('Usuario creado correctamente.');
+      }
+    });
   }
 
 }
