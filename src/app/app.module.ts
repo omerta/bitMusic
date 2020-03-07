@@ -7,11 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
-import { UserService } from './services/user.service'; // Importamos el servicio de user.
+import { UserService } from './services/user.service';
+import { LoginComponent } from './components/login/login.component'; // Importamos el servicio de user.
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent
+    SignUpComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
