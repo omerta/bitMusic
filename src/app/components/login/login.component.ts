@@ -10,10 +10,31 @@ import { UserService } from '../../services/user.service';
 export class LoginComponent implements OnInit {
   public user: User;
   constructor(
-    private UserService: UserService,
-  ) { }
+    private service: UserService,
+  ) { 
+    this.user = new User('', '', '', '', '', '');
+  }
 
   ngOnInit(): void {
+  }
+
+  login() {
+    this.service.login( this.user).subscribe( (res: any) => {
+      console.log("Status --> ", res.statusCode);
+      switch (res.statusCode) {
+        case 400:
+          alert('No estas registrado');
+          break;
+        case 401:
+          alert('La contraseña está incorrecta');
+          break;
+        case 200:
+          alert('Bienvenido');
+          break;
+        default:
+          alert('Error de conexión.');
+      }
+    });
   }
 
 }
