@@ -30,3 +30,15 @@ Si no tenemos Node.js instalado, debemos ir a <b> https://nodejs.org/en/ </b> e 
 <li> Abre la terminar en la carpeta donde clonaste el proyecto y ejecuta <b>npm install</b>. Con este comando, podemos instalar todos los módulos utilizados en nuestra API. </li>
 <li> Abre la terminal y escribe <b>node index.js</b>, con este comando levantamos nuestro servidor, veremos en la terminal los mensajes: <br/> <b>Bien!!!</b> <br/> <b>Escuchando en el puerto => 4200</b> </li>
 </ul>
+
+# Endpoints
+
+* GET on root
+
+curl -X GET http://localhost:3000/api
+
+* Create Song
+
+curl -H "Content-Type: application/json" \
+ -X POST http://localhost:3000/api/song \
+ -d '{ "name": "NameSong", "artist": "ArtistSong", "genre": "GenreSong", "image": "song_image.png", "file": "song_file.ogg" }' | jq
