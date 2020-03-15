@@ -123,9 +123,55 @@ function uploadImage(req, res) {
   }
 }
 
+function uploadSong(req, res) {
+  var id = req.params.id;
+  var imageName = 'No cargó ninguna image';
+  console.log("LOAD song" + req.files)
+  if (req.files) {
+    var imageRoute = req.files.file.path;
+
+    var imageName = imageRoute.split('\\');
+    if (imageName.length === 1) {
+      var imageName = imageRoute.split('/');
+    }
+
+    var imageName = imageName[2];
+
+    Song.findByIdAndUpdate(id, {
+      image: imageName
+    }, (err, dataSong) => {
+      if (err) {
+        res.send({
+          message: 'Error en el servidor',
+          statusCode: 500
+        });
+      } else {
+        if (!dataSong) {
+          res.send({
+            message: 'No fue posible actualizar la imagen',
+            statusCode: 401
+          });
+        } else {
+          res.send({
+            imagen: imageName,
+            dataSong: dataSong,
+            statusCode: 200
+          });
+        }
+      }
+    });
+
+  } else {
+    res.status(404).send({
+      message: "No ha subido ninguna imagen"
+    });
+  }
+}
+
 module.exports = {
   create,
   update,
   destroy,
-  uploadImage
+  uploadImage,
+  uploadSong
 }

@@ -3,6 +3,8 @@ const UserController = require('../controllers/UserController');
 const SongController = require('../controllers/SongController');
 var multipart = require('connect-multiparty'); //npm i connect-multiparty --save
 var imagesDir = multipart({ uploadDir: './assets/images' });
+var coverDir = multipart({ uploadDir: './assets/songs/cover' });
+var songsDir = multipart({ uploadDir: './assets/songs/' });
 
 var api = express.Router();
 
@@ -29,6 +31,7 @@ api.put('/song/:id', SongController.update);
 // delete a song
 api.delete('/song/:id', SongController.destroy)
 // upload image
-api.post('/songUploadImage/:id', SongController.uploadImage);
+api.post('/coverSongUpload/:id', coverDir, SongController.uploadImage);
+api.post('/songUploadImage/:id', songsDir, SongController.uploadSong);
 
 module.exports = api; //Convertimos las rutas en un módulo.
