@@ -21,7 +21,7 @@ function create(req, res) {
     } else {
       res.status(200).send({
         message: "Yuujuu! the song has been created.",
-        user: songCreated,
+        song: songCreated,
         statusCode: 200
       })
     }
@@ -79,8 +79,53 @@ function destroy(req, res) {
   })
 }
 
+function uploadImage(req, res) {
+  var id = req.params.id;
+  var imageName = 'No cargó ninguna image';
+  if (req.files) {
+    var imageRoute = req.files.image.path;
+
+    var imageName = imageRoute.split('\\');
+    if (imageName.length === 1) {
+      var imageName = imageRoute.split('/');
+    }
+
+    var imageName = imageName[2];
+
+    Song.findByIdAndUpdate(id, {
+      image: imageName
+    }, (err, dataSong) => {
+      if (err) {
+        res.send({
+          message: 'Error en el servidor',
+          statusCode: 500
+        });
+      } else {
+        if (!dataSong) {
+          res.send({
+            message: 'No fue posible actualizar la imagen',
+            statusCode: 401
+          });
+        } else {
+          res.send({
+            imagen: imageName,
+            dataSong: dataSong,
+            statusCode: 200
+          });
+        }
+      }
+    });
+
+  } else {
+    res.status(404).send({
+      message: "No ha subido ninguna imagen"
+    });
+  }
+}
+
 module.exports = {
   create,
   update,
   destroy,
+  uploadImage
 }

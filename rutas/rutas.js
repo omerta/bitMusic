@@ -28,6 +28,7 @@ api.post('/song', SongController.create);
 api.put('/song/:id', SongController.update);
 // delete a song
 api.delete('/song/:id', SongController.destroy)
-
+// upload image
+api.post('/songUploadImage/:id', SongController.uploadImage);
 
 module.exports = api; //Convertimos las rutas en un módulo.

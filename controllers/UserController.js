@@ -105,7 +105,7 @@ function login(req, res) {
         var password = encriptar(params.password);
         //console.log("Contraseña encriptada: ", password);
         //console.log(" Contraseña guardada en la DB : ", userLogged.password);
-        console.log(userLogged);
+        console.log("ELSE" + userLogged);
         if (password === userLogged.password) {
           res.send({
             message: "Los datos son correctos",

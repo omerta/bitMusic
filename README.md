@@ -37,6 +37,13 @@ Si no tenemos Node.js instalado, debemos ir a <b> https://nodejs.org/en/ </b> e 
 
 curl -X GET http://localhost:3000/api
 
+* POST /loginUser
+
+curl -H "Content-Type: application/json" \
+  -X POST http://localhost:3000/api/loginUser \
+  -d '{ "email": "glengemann@foo.com", "password": "123456" }' | jq
+
+
 * Create Song
 
 curl -H "Content-Type: application/json" \
