@@ -2,6 +2,17 @@ const Song = require('../models/Song');
 const fs = require('fs');
 const path = require('path');
 
+
+function list(req, res) { 
+  Song.find({}, (err, song) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+
+      res.status(200).json(song);
+  });
+}
+
 function create(req, res) {
   var song = new Song();
   var params = req.body;
@@ -83,14 +94,18 @@ function uploadImage(req, res) {
   var id = req.params.id;
   var imageName = 'No cargó ninguna image';
   if (req.files) {
+    
     var imageRoute = req.files.image.path;
-
+    
     var imageName = imageRoute.split('\\');
+    
     if (imageName.length === 1) {
       var imageName = imageRoute.split('/');
     }
-
-    var imageName = imageName[2];
+    
+    // var imageName = imageName.slice(-1);
+    var imageName = imageName[3];
+    
 
     Song.findByIdAndUpdate(id, {
       image: imageName
@@ -126,7 +141,6 @@ function uploadImage(req, res) {
 function uploadSong(req, res) {
   var id = req.params.id;
   var imageName = 'No cargó ninguna image';
-  console.log("LOAD song" + req.files)
   if (req.files) {
     var imageRoute = req.files.file.path;
 
@@ -138,7 +152,7 @@ function uploadSong(req, res) {
     var imageName = imageName[2];
 
     Song.findByIdAndUpdate(id, {
-      image: imageName
+      file: imageName
     }, (err, dataSong) => {
       if (err) {
         res.send({
@@ -168,7 +182,52 @@ function uploadSong(req, res) {
   }
 }
 
+function getImage(req, res) {
+  var image = req.params.image;
+  
+  if (image === 'undefined') {
+    image = 'whitoutImage.png'
+  }
+
+  var rutaArchivo = './assets/songs/cover/' + image;
+
+  fs.exists(rutaArchivo, (exists) => {
+    if (exists) {
+      res.sendFile(path.resolve(rutaArchivo));
+    } else {
+      res.send({
+        message: "Imagen no encontrada",
+        statusCode: 404
+      });
+    }
+  });
+}
+
+function getFile(req, res) {
+  var image = req.params.file;
+  
+  if (image === 'undefined') {
+    image = 'whitoutImage.png'
+  }
+
+  var rutaArchivo = './assets/songs/' + image;
+
+  fs.exists(rutaArchivo, (exists) => {
+    if (exists) {
+      res.sendFile(path.resolve(rutaArchivo));
+    } else {
+      res.send({
+        message: "Imagen no encontrada",
+        statusCode: 404
+      });
+    }
+  });
+}
+
 module.exports = {
+  list,
+  getImage,
+  getFile,
   create,
   update,
   destroy,

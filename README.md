@@ -43,6 +43,12 @@ curl -H "Content-Type: application/json" \
   -X POST http://localhost:3000/api/loginUser \
   -d '{ "email": "glengemann@foo.com", "password": "123456" }' | jq
 
+* List All Songs
+
+```bash
+curl -H "Content-Type: application/json" \
+  -X GET "http://localhost:3000/api/songs"
+```
 
 * Create Song
 

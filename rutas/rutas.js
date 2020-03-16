@@ -3,7 +3,7 @@ const UserController = require('../controllers/UserController');
 const SongController = require('../controllers/SongController');
 var multipart = require('connect-multiparty'); //npm i connect-multiparty --save
 var imagesDir = multipart({ uploadDir: './assets/images' });
-var coverDir = multipart({ uploadDir: './assets/songs/cover' });
+var coverDir = multipart({ uploadDir: './assets/songs/cover/' });
 var songsDir = multipart({ uploadDir: './assets/songs/' });
 
 var api = express.Router();
@@ -21,7 +21,9 @@ api.post('/loadImage/:id', imagesDir, UserController.loadImage);
 api.get('/printImage/:image', UserController.printImage);
 
 // retrive all songs
-// api.get('/songs', SongController.list);
+api.get('/songs', SongController.list);
+api.get('/getImage/:image', SongController.getImage);
+api.get('/getFile/:file', SongController.getFile);
 // retrive a song
 // api.get('/song/:id', SongController.show);
 // create a song
