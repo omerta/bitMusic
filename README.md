@@ -31,9 +31,34 @@ Si no tenemos Node.js instalado, debemos ir a <b> https://nodejs.org/en/ </b> e 
 <li> Abre la terminal y escribe <b>node index.js</b>, con este comando levantamos nuestro servidor, veremos en la terminal los mensajes: <br/> <b>Bien!!!</b> <br/> <b>Escuchando en el puerto => 4200</b> </li>
 </ul>
 
+# Mongo with docker
+
+docker run -p 27017:27017 -v $PWD/data mongo
+
+# Auth
+
+npm install --save jsonwebtoken
+npm install --save passport passport-local
+
 # Endpoints
 
-* GET on root
+* POST on /register
+
+```bash
+curl -H "Content-Type: application/json" \
+  -X POST http://localhost:3000/api/register \
+  -d '{ "firstName": "Kant", "email": "kant@kritik.com", "password": "123456" }' | jq
+```
+
+* POST on /login
+
+```bash
+curl -H "Content-Type: application/json" \
+  -X POST http://localhost:3000/api/login \
+  -d '{ "email": "kant@kritik.com", "password": "123456" }' | jq
+```
+
+* GET on /
 
 curl -X GET http://localhost:3000/api
 

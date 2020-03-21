@@ -1,6 +1,7 @@
 const express = require('express'); //Requerimos el módulo de express.
 const UserController = require('../controllers/UserController');
 const SongController = require('../controllers/SongController');
+const ctrlAuth = require('../controllers/authentication');
 var multipart = require('connect-multiparty'); //npm i connect-multiparty --save
 var imagesDir = multipart({ uploadDir: './assets/images' });
 var coverDir = multipart({ uploadDir: './assets/songs/cover/' });
@@ -11,6 +12,9 @@ var api = express.Router();
 api.get('/', function (req, res) {
     res.send('Welcome')
 });
+
+api.post('/register', ctrlAuth.register);
+api.post('/login', ctrlAuth.login);
 
 api.post('/createUser', UserController.create);
 api.put('/updateUser/:id', UserController.update);
