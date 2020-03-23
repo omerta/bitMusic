@@ -12,6 +12,7 @@ var UsersSchema = new Schema({
   lastName: String,
   email: String,
   password: String,
+  role: String,
   salt: String,
   image: String
 });

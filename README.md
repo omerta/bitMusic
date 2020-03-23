@@ -47,7 +47,13 @@ npm install --save passport passport-local
 ```bash
 curl -H "Content-Type: application/json" \
   -X POST http://localhost:3000/api/register \
-  -d '{ "firstName": "Kant", "email": "kant@kritik.com", "password": "123456" }' | jq
+  -d '{ "firstName": "Kant", "role": "admin", "email": "kant@kritik.com", "password": "123456" }' | jq
+```
+
+```bash
+curl -H "Content-Type: application/json" \
+  -X POST http://localhost:3000/api/register \
+  -d '{ "firstName": "Karl", "role": "child", "email": "karl@science.com", "password": "123456" }' | jq
 ```
 
 * POST on /login

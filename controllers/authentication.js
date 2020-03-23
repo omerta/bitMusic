@@ -13,6 +13,7 @@ const register = (req, res) => {
   const user = new User();
   user.firstName = req.body.firstName;
   user.email = req.body.email;
+  user.role = req.body.role;
 //   user.setPassword(req.body.password);
   user.password = req.body.password;
   user.save((err) => {

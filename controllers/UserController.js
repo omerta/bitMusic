@@ -16,6 +16,7 @@ function create(req, res) {
   user.firstName = params.firstName;
   user.lastName = params.lastName;
   user.email = params.email;
+  user.role = params.role;
   if (params.password !== "" && params.password !== undefined) {
     user.password = encriptar(params.password);
   }
@@ -102,11 +103,10 @@ function login(req, res) {
           statusCode: 400
         })
       } else {
-        var password = encriptar(params.password);
-        //console.log("Contraseña encriptada: ", password);
-        //console.log(" Contraseña guardada en la DB : ", userLogged.password);
-        console.log("ELSE" + userLogged);
-        if (password === userLogged.password) {
+        // var password = encriptar(params.password);
+
+        // if (password === userLogged.password) {
+        if (params.password === userLogged.password) {
           res.send({
             message: "Los datos son correctos",
             statusCode: 200,
